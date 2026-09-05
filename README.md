@@ -17,8 +17,14 @@ Funciona 100 % en el navegador: tu token personal de Figma nunca sale de tu equi
 
 ### Archivos de la Comunidad
 
-La API de Figma solo lee archivos a los que tu cuenta tiene acceso. Si el enlace es de la
-Comunidad, ábrelo en Figma, duplícalo a tus borradores y usa el enlace del archivo duplicado.
+La API de Figma solo lee archivos a los que tu cuenta tiene acceso.
+
+1. Abre `figma.com/community/file/<clave>`.
+2. Pulsa **Obtener una copia / Get a copy**.
+3. En la pestaña nueva, la clave de la URL **cambia** (`figma.com/design/<CLAVE-NUEVA>/...`).
+4. Usa esa URL nueva. Si la clave sigue siendo la misma que la de la Comunidad, la copia no se guardó.
+
+Un 403 con la misma clave que la original = copia no realizada, no es problema del token.
 
 ### Nombres de archivo
 
