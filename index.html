@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figma Extractor de Interfaces</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Figma · Extractor de Interfaces</h1>
+  <p class="sub">Extrae todos los frames de nivel superior de un archivo de Figma como PNG @2x, revísalos y descárgalos en un ZIP con una carpeta general. Tu token nunca sale de este navegador.</p>
+</header>
+
+<main>
+  <section class="card" id="form-section">
+    <div class="field">
+      <label for="token">Token personal de Figma</label>
+      <input type="password" id="token" placeholder="figd_..." autocomplete="off" spellcheck="false">
+      <small>Lo generas en Figma → Settings → Security → <em>Personal access tokens</em>. Necesita el scope <strong>File content: Read-only</strong>. Se usa solo desde tu navegador; márcalo abajo si quieres recordarlo en este equipo.</small>
+    </div>
+
+    <div class="field">
+      <label for="url">Enlace o clave del archivo de Figma</label>
+      <input type="text" id="url" placeholder="https://www.figma.com/design/XXXXXXXX/... o https://www.figma.com/proto/XXXXXXXX/...">
+      <small>Sirve cualquier enlace de <code>/design/</code>, <code>/file/</code> o <code>/proto/</code>. Si es un archivo de la Comunidad, primero duplícalo a tus borradores (botón <em>Open in Figma</em>) para que tu token tenga acceso.</small>
+    </div>
+
+    <div class="row">
+      <label class="check"><input type="checkbox" id="remember"> Recordar token en este navegador</label>
+    </div>
+
+    <details class="advanced">
+      <summary>Opciones avanzadas</summary>
+      <div class="field">
+        <label for="proxy">Prefijo de proxy CORS (opcional)</label>
+        <input type="text" id="proxy" placeholder="Déjalo vacío salvo que la descarga de imágenes falle por CORS">
+        <small>Si al generar el ZIP las imágenes fallan al descargarse, pega aquí un prefijo de proxy CORS de tu confianza (por ejemplo <code>https://tu-proxy/?</code>). Se antepone solo a las URLs de imagen de Figma.</small>
+      </div>
+      <div class="field">
+        <label for="scale">Escala de exportación</label>
+        <select id="scale">
+          <option value="1">@1x</option>
+          <option value="2" selected>@2x</option>
+          <option value="3">@3x</option>
+          <option value="4">@4x</option>
+        </select>
+      </div>
+    </details>
+
+    <button id="load-btn" class="primary">Cargar frames</button>
+    <div id="load-status" class="status" hidden></div>
+  </section>
+
+  <section class="card" id="options-section" hidden>
+    <h2>Opciones del ZIP</h2>
+    <div class="field">
+      <label for="folder">Nombre de la carpeta general (y del ZIP)</label>
+      <input type="text" id="folder" placeholder="Interfaces">
+    </div>
+    <div class="field">
+      <span class="label">Nombres de archivo</span>
+      <label class="radio"><input type="radio" name="naming" value="original" checked> Nombre original del frame</label>
+      <label class="radio"><input type="radio" name="naming" value="numeric_name"> Número de orden + nombre <span class="muted">(0001_Nombre.png)</span></label>
+      <label class="radio"><input type="radio" name="naming" value="numeric"> Solo número de orden <span class="muted">(0001.png)</span></label>
+    </div>
+    <div class="row">
+      <label class="check"><input type="checkbox" id="group-page"> Crear una subcarpeta por página de Figma</label>
+    </div>
+  </section>
+
+  <section class="card" id="preview-section" hidden>
+    <div class="preview-head">
+      <h2>Vista previa <span id="count-badge" class="badge">0</span></h2>
+      <div class="preview-actions">
+        <button id="select-all" class="ghost">Todos</button>
+        <button id="select-none" class="ghost">Ninguno</button>
+        <span id="selected-info" class="muted"></span>
+      </div>
+    </div>
+    <div id="grid" class="grid"></div>
+    <div class="download-bar">
+      <button id="zip-btn" class="primary">Descargar ZIP</button>
+      <div id="zip-status" class="status" hidden></div>
+      <div class="progress" id="progress-wrap" hidden><div class="progress-bar" id="progress-bar"></div></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Todo el procesamiento ocurre en tu navegador. No se envía nada a ningún servidor salvo las peticiones directas a la API de Figma.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

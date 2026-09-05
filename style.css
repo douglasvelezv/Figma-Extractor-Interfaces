@@ -1,0 +1,136 @@
+:root {
+  --bg: #0e0e11;
+  --surface: #17171c;
+  --surface-2: #1f1f26;
+  --border: #2c2c35;
+  --text: #e9e9ee;
+  --muted: #9a9aa6;
+  --accent: #7c6cff;
+  --accent-hover: #8f80ff;
+  --danger: #ff6b6b;
+  --ok: #4ec9a3;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+header, main, footer { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+header { padding-top: 40px; padding-bottom: 8px; }
+h1 { font-size: 1.6rem; margin: 0 0 6px; }
+.sub { color: var(--muted); margin: 0 0 24px; max-width: 70ch; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 18px;
+}
+.card h2 { margin: 0 0 16px; font-size: 1.15rem; }
+
+.field { margin-bottom: 16px; }
+.field label, .field .label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+}
+.field small {
+  display: block;
+  color: var(--muted);
+  margin-top: 6px;
+  font-size: 0.82rem;
+}
+.field code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; font-size: 0.85em; }
+
+input[type=text], input[type=password], select {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font: inherit;
+}
+input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.row { margin: 12px 0; }
+.check, .radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.check input, .radio input { width: auto; }
+.muted { color: var(--muted); font-size: 0.85em; }
+
+.advanced { margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; }
+.advanced summary { cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+.advanced[open] { padding-bottom: 4px; }
+.advanced .field { margin-top: 14px; }
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 10px 18px;
+}
+button.primary { background: var(--accent); color: #fff; font-weight: 600; }
+button.primary:hover { background: var(--accent-hover); }
+button.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+button.ghost { background: transparent; border-color: var(--border); color: var(--text); padding: 6px 12px; font-size: 0.85rem; }
+button.ghost:hover { background: var(--surface-2); }
+
+.status { margin-top: 12px; font-size: 0.88rem; }
+.status.err { color: var(--danger); white-space: pre-wrap; }
+.status.ok { color: var(--ok); }
+
+.preview-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.preview-head h2 { margin: 0; }
+.preview-actions { display: flex; align-items: center; gap: 8px; }
+.badge, .label + .badge { background: var(--surface-2); border: 1px solid var(--border); border-radius: 20px; padding: 2px 10px; font-size: 0.8rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+}
+.tile {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.tile.off { opacity: 0.4; }
+.tile .thumb {
+  aspect-ratio: 3 / 5;
+  background: #000 repeating-linear-gradient(45deg, #1a1a20 0 10px, #15151a 10px 20px);
+  display: flex; align-items: center; justify-content: center;
+}
+.tile .thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.tile .meta { padding: 8px; display: flex; gap: 6px; align-items: flex-start; }
+.tile .meta input { margin-top: 3px; }
+.tile .name { font-size: 0.78rem; word-break: break-word; line-height: 1.35; }
+.tile .page-tag { display: block; color: var(--muted); font-size: 0.7rem; margin-top: 2px; }
+
+.download-bar { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
+.progress { height: 8px; background: var(--surface-2); border-radius: 6px; margin-top: 12px; overflow: hidden; }
+.progress-bar { height: 100%; width: 0; background: var(--accent); transition: width 0.2s; }
+
+footer { color: var(--muted); font-size: 0.8rem; padding-top: 10px; padding-bottom: 50px; }
+
+@media (max-width: 520px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+}
